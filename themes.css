@@ -1,0 +1,541 @@
+/* ========================================
+   STUDIO PRO - THEME SYSTEM
+   Multiple bold and vibrant color schemes
+   ======================================== */
+
+/* Base Theme Variables */
+:root {
+    /* Default Theme (Neon Green/Cyan) */
+    --primary-color: #00ff88;
+    --secondary-color: #00d4ff;
+    --accent-color: #ff6b00;
+    --bg-gradient-start: #1a1a2e;
+    --bg-gradient-end: #0f0f1e;
+    --header-gradient-start: #2d2d44;
+    --header-gradient-end: #1a1a2e;
+    --border-color: #2d2d44;
+    --button-bg: #2d2d44;
+    --button-border: #4d4d6c;
+    --text-primary: #00ff88;
+    --text-secondary: #00d4ff;
+    --glow-color: rgba(0, 255, 136, 0.5);
+    --body-gradient-start: #667eea;
+    --body-gradient-end: #764ba2;
+}
+
+/* ========================================
+   THEME 1: EVANGELION (Purple & Green)
+   Inspired by Neon Genesis Evangelion
+   ======================================== */
+[data-theme="evangelion"] {
+    --primary-color: #00ff41;
+    --secondary-color: #9d00ff;
+    --accent-color: #ff0090;
+    --bg-gradient-start: #1a0033;
+    --bg-gradient-end: #0a0015;
+    --header-gradient-start: #2d0052;
+    --header-gradient-end: #1a0033;
+    --border-color: #4d0080;
+    --button-bg: #2d0052;
+    --button-border: #6d00b0;
+    --text-primary: #00ff41;
+    --text-secondary: #9d00ff;
+    --glow-color: rgba(0, 255, 65, 0.6);
+    --body-gradient-start: #4a0080;
+    --body-gradient-end: #1a0033;
+}
+
+/* ========================================
+   THEME 2: SUNSET FIRE (Orange & Pink)
+   Bold sunset colors
+   ======================================== */
+[data-theme="sunset"] {
+    --primary-color: #ff6b00;
+    --secondary-color: #ff0077;
+    --accent-color: #ffd700;
+    --bg-gradient-start: #2d1810;
+    --bg-gradient-end: #1a0a05;
+    --header-gradient-start: #3d2820;
+    --header-gradient-end: #2d1810;
+    --border-color: #4d3020;
+    --button-bg: #3d2820;
+    --button-border: #6d4830;
+    --text-primary: #ff6b00;
+    --text-secondary: #ff0077;
+    --glow-color: rgba(255, 107, 0, 0.6);
+    --body-gradient-start: #ff4500;
+    --body-gradient-end: #8b0000;
+}
+
+/* ========================================
+   THEME 3: OCEAN WAVE (Cyan & Blue)
+   Deep ocean vibes
+   ======================================== */
+[data-theme="ocean"] {
+    --primary-color: #00ffff;
+    --secondary-color: #0088ff;
+    --accent-color: #00ff88;
+    --bg-gradient-start: #001a2e;
+    --bg-gradient-end: #000f1e;
+    --header-gradient-start: #002d44;
+    --header-gradient-end: #001a2e;
+    --border-color: #004d6d;
+    --button-bg: #002d44;
+    --button-border: #0066aa;
+    --text-primary: #00ffff;
+    --text-secondary: #0088ff;
+    --glow-color: rgba(0, 255, 255, 0.6);
+    --body-gradient-start: #006994;
+    --body-gradient-end: #003d5c;
+}
+
+/* ========================================
+   THEME 4: HOTLINE MIAMI (Pink & Cyan)
+   Retro 80s neon
+   ======================================== */
+[data-theme="hotline"] {
+    --primary-color: #ff10f0;
+    --secondary-color: #00ffff;
+    --accent-color: #ffff00;
+    --bg-gradient-start: #2e001a;
+    --bg-gradient-end: #1e000f;
+    --header-gradient-start: #44002d;
+    --header-gradient-end: #2e001a;
+    --border-color: #6d0044;
+    --button-bg: #44002d;
+    --button-border: #8d0060;
+    --text-primary: #ff10f0;
+    --text-secondary: #00ffff;
+    --glow-color: rgba(255, 16, 240, 0.6);
+    --body-gradient-start: #8b008b;
+    --body-gradient-end: #4b0082;
+}
+
+/* ========================================
+   THEME 5: MATRIX (Lime Green)
+   Classic Matrix style
+   ======================================== */
+[data-theme="matrix"] {
+    --primary-color: #00ff00;
+    --secondary-color: #39ff14;
+    --accent-color: #7fff00;
+    --bg-gradient-start: #001a00;
+    --bg-gradient-end: #000f00;
+    --header-gradient-start: #002d00;
+    --header-gradient-end: #001a00;
+    --border-color: #004d00;
+    --button-bg: #002d00;
+    --button-border: #006600;
+    --text-primary: #00ff00;
+    --text-secondary: #39ff14;
+    --glow-color: rgba(0, 255, 0, 0.6);
+    --body-gradient-start: #001100;
+    --body-gradient-end: #000000;
+}
+
+/* ========================================
+   THEME 6: LAVA (Red & Orange)
+   Hot molten lava
+   ======================================== */
+[data-theme="lava"] {
+    --primary-color: #ff0000;
+    --secondary-color: #ff6600;
+    --accent-color: #ffff00;
+    --bg-gradient-start: #2e0000;
+    --bg-gradient-end: #1a0000;
+    --header-gradient-start: #440000;
+    --header-gradient-end: #2e0000;
+    --border-color: #6d0000;
+    --button-bg: #440000;
+    --button-border: #8d0000;
+    --text-primary: #ff0000;
+    --text-secondary: #ff6600;
+    --glow-color: rgba(255, 0, 0, 0.6);
+    --body-gradient-start: #8b0000;
+    --body-gradient-end: #330000;
+}
+
+/* ========================================
+   THEME 7: CYBERPUNK (Yellow & Purple)
+   Cyberpunk 2077 inspired
+   ======================================== */
+[data-theme="cyberpunk"] {
+    --primary-color: #fcee09;
+    --secondary-color: #ff00ff;
+    --accent-color: #00ffff;
+    --bg-gradient-start: #1a1a00;
+    --bg-gradient-end: #0f0f00;
+    --header-gradient-start: #2d2d00;
+    --header-gradient-end: #1a1a00;
+    --border-color: #4d4d00;
+    --button-bg: #2d2d00;
+    --button-border: #6d6d00;
+    --text-primary: #fcee09;
+    --text-secondary: #ff00ff;
+    --glow-color: rgba(252, 238, 9, 0.6);
+    --body-gradient-start: #665200;
+    --body-gradient-end: #1a1500;
+}
+
+/* ========================================
+   THEME 8: VAPORWAVE (Pink & Teal)
+   Aesthetic vaporwave
+   ======================================== */
+[data-theme="vaporwave"] {
+    --primary-color: #ff71ce;
+    --secondary-color: #01cdfe;
+    --accent-color: #b967ff;
+    --bg-gradient-start: #2e0028;
+    --bg-gradient-end: #1a0015;
+    --header-gradient-start: #44003d;
+    --header-gradient-end: #2e0028;
+    --border-color: #6d0060;
+    --button-bg: #44003d;
+    --button-border: #8d0080;
+    --text-primary: #ff71ce;
+    --text-secondary: #01cdfe;
+    --glow-color: rgba(255, 113, 206, 0.6);
+    --body-gradient-start: #2d1b69;
+    --body-gradient-end: #aa4b6b;
+}
+
+/* ========================================
+   THEME 9: TOXIC (Toxic Green & Yellow)
+   Radioactive warning
+   ======================================== */
+[data-theme="toxic"] {
+    --primary-color: #ccff00;
+    --secondary-color: #00ff00;
+    --accent-color: #ffff00;
+    --bg-gradient-start: #1a2e00;
+    --bg-gradient-end: #0f1a00;
+    --header-gradient-start: #2d4400;
+    --header-gradient-end: #1a2e00;
+    --border-color: #4d6d00;
+    --button-bg: #2d4400;
+    --button-border: #6d8d00;
+    --text-primary: #ccff00;
+    --text-secondary: #00ff00;
+    --glow-color: rgba(204, 255, 0, 0.6);
+    --body-gradient-start: #556b2f;
+    --body-gradient-end: #2d3d0f;
+}
+
+/* ========================================
+   THEME 10: ROYAL (Gold & Purple)
+   Royal luxury
+   ======================================== */
+[data-theme="royal"] {
+    --primary-color: #ffd700;
+    --secondary-color: #9370db;
+    --accent-color: #ff1493;
+    --bg-gradient-start: #1a0033;
+    --bg-gradient-end: #0f001a;
+    --header-gradient-start: #2d0052;
+    --header-gradient-end: #1a0033;
+    --border-color: #4d0080;
+    --button-bg: #2d0052;
+    --button-border: #6d00b0;
+    --text-primary: #ffd700;
+    --text-secondary: #9370db;
+    --glow-color: rgba(255, 215, 0, 0.6);
+    --body-gradient-start: #4b0082;
+    --body-gradient-end: #191970;
+}
+
+/* Apply theme colors to elements */
+body {
+    background: linear-gradient(135deg, var(--body-gradient-start) 0%, var(--body-gradient-end) 100%);
+    transition: background 0.5s ease;
+}
+
+.player-container {
+    background: linear-gradient(180deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
+    border-color: var(--border-color);
+    transition: all 0.5s ease;
+}
+
+.player-header {
+    background: linear-gradient(180deg, var(--header-gradient-start) 0%, var(--header-gradient-end) 100%);
+    transition: all 0.5s ease;
+}
+
+.title-bar {
+    background: linear-gradient(180deg, var(--button-border) 0%, var(--header-gradient-start) 100%);
+    transition: all 0.5s ease;
+}
+
+.title {
+    color: var(--primary-color);
+    text-shadow: 0 0 10px var(--glow-color);
+    transition: all 0.5s ease;
+}
+
+.window-controls button {
+    background: var(--button-bg);
+    border-color: var(--button-border);
+    color: var(--primary-color);
+    transition: all 0.5s ease;
+}
+
+.window-controls button:hover {
+    background: var(--button-border);
+    color: var(--primary-color);
+    box-shadow: 0 0 15px var(--glow-color);
+}
+
+.track-title {
+    color: var(--primary-color);
+    transition: all 0.5s ease;
+}
+
+.track-artist {
+    color: var(--secondary-color);
+    transition: all 0.5s ease;
+}
+
+.track-time {
+    color: var(--accent-color);
+    transition: all 0.5s ease;
+}
+
+.progress-bar {
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    transition: all 0.5s ease;
+}
+
+.control-btn {
+    background: var(--button-bg);
+    border-color: var(--button-border);
+    transition: all 0.5s ease;
+}
+
+.control-btn svg {
+    fill: var(--primary-color);
+    transition: all 0.5s ease;
+}
+
+.control-btn:hover {
+    background: var(--button-border);
+    box-shadow: 0 0 20px var(--glow-color);
+    transform: scale(1.1);
+}
+
+.play-pause {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    box-shadow: 0 0 30px var(--glow-color);
+}
+
+.play-pause svg {
+    fill: var(--bg-gradient-end);
+}
+
+.play-pause:hover {
+    box-shadow: 0 0 40px var(--glow-color);
+}
+
+.volume-controls svg {
+    fill: var(--primary-color);
+    transition: all 0.5s ease;
+}
+
+.volume-slider::-webkit-slider-thumb {
+    background: var(--primary-color);
+    box-shadow: 0 0 10px var(--glow-color);
+    transition: all 0.5s ease;
+}
+
+.playlist-header {
+    color: var(--primary-color);
+    transition: all 0.5s ease;
+}
+
+.btn-add {
+    background: transparent;
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+    transition: all 0.5s ease;
+}
+
+.btn-add:hover {
+    background: var(--primary-color);
+    color: var(--bg-gradient-end);
+    box-shadow: 0 0 20px var(--glow-color);
+}
+
+.btn-clear {
+    background: transparent;
+    border-color: var(--secondary-color);
+    color: var(--secondary-color);
+    transition: all 0.5s ease;
+}
+
+.btn-clear:hover {
+    background: var(--secondary-color);
+    color: var(--bg-gradient-end);
+    box-shadow: 0 0 20px var(--glow-color);
+}
+
+.playlist-item:hover {
+    background: var(--button-bg);
+    border-left-color: var(--primary-color);
+    transition: all 0.3s ease;
+}
+
+.playlist-item.active {
+    background: var(--button-bg);
+    border-left-color: var(--primary-color);
+}
+
+.eq-bar {
+    background: linear-gradient(to top, var(--primary-color), var(--secondary-color));
+    box-shadow: 0 0 10px var(--glow-color);
+    transition: all 0.5s ease;
+}
+
+/* Theme Selector Styles */
+.theme-selector {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.theme-button {
+    background: rgba(0, 0, 0, 0.7);
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 20px var(--glow-color);
+}
+
+.theme-button:hover {
+    background: var(--primary-color);
+    color: var(--bg-gradient-end);
+    transform: translateY(-2px);
+    box-shadow: 0 0 30px var(--glow-color);
+}
+
+.theme-dropdown {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    background: rgba(0, 0, 0, 0.95);
+    border: 2px solid var(--primary-color);
+    border-radius: 8px;
+    padding: 10px;
+    display: none;
+    min-width: 200px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+}
+
+.theme-dropdown.active {
+    display: block;
+    animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.theme-option {
+    padding: 12px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin: 5px 0;
+    transition: all 0.3s ease;
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.theme-option:hover {
+    transform: translateX(5px);
+}
+
+/* Individual theme option colors */
+.theme-option[data-theme="default"] {
+    background: linear-gradient(90deg, #00ff88, #00d4ff);
+    color: #000;
+}
+
+.theme-option[data-theme="evangelion"] {
+    background: linear-gradient(90deg, #00ff41, #9d00ff);
+    color: #fff;
+}
+
+.theme-option[data-theme="sunset"] {
+    background: linear-gradient(90deg, #ff6b00, #ff0077);
+    color: #fff;
+}
+
+.theme-option[data-theme="ocean"] {
+    background: linear-gradient(90deg, #00ffff, #0088ff);
+    color: #000;
+}
+
+.theme-option[data-theme="hotline"] {
+    background: linear-gradient(90deg, #ff10f0, #00ffff);
+    color: #000;
+}
+
+.theme-option[data-theme="matrix"] {
+    background: linear-gradient(90deg, #00ff00, #39ff14);
+    color: #000;
+}
+
+.theme-option[data-theme="lava"] {
+    background: linear-gradient(90deg, #ff0000, #ff6600);
+    color: #fff;
+}
+
+.theme-option[data-theme="cyberpunk"] {
+    background: linear-gradient(90deg, #fcee09, #ff00ff);
+    color: #000;
+}
+
+.theme-option[data-theme="vaporwave"] {
+    background: linear-gradient(90deg, #ff71ce, #01cdfe);
+    color: #000;
+}
+
+.theme-option[data-theme="toxic"] {
+    background: linear-gradient(90deg, #ccff00, #00ff00);
+    color: #000;
+}
+
+.theme-option[data-theme="royal"] {
+    background: linear-gradient(90deg, #ffd700, #9370db);
+    color: #000;
+}
+
+.theme-color-preview {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+}
+
+.theme-option.active::after {
+    content: "✓";
+    margin-left: auto;
+    font-size: 18px;
+}
