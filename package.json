@@ -1,11 +1,22 @@
 {
   "name": "studio-pro",
-  "version": "1.0.0",
-  "description": "Editor profesional de audio y video con autenticación OAuth",
-  "main": "server.js",
+  "productName": "Studio Pro",
+  "version": "2.0.0",
+  "description": "Editor profesional de audio y video multiplataforma con autenticación OAuth",
+  "main": "main.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js",
+    "start": "electron .",
+    "dev": "electron . --no-sandbox",
+    "server": "node server.js",
+    "server:dev": "nodemon server.js",
+    "build": "electron-builder",
+    "build:win": "electron-builder --win",
+    "build:mac": "electron-builder --mac",
+    "build:linux": "electron-builder --linux",
+    "build:all": "electron-builder -mwl",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder",
+    "postinstall": "electron-builder install-app-deps",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -13,10 +24,25 @@
     "video",
     "editor",
     "oauth",
-    "authentication"
+    "authentication",
+    "electron",
+    "desktop",
+    "cross-platform"
   ],
-  "author": "Studio Pro Team",
+  "author": {
+    "name": "Studio Pro Team",
+    "email": "contact@studiopro.com",
+    "url": "https://studiopro.com"
+  },
   "license": "MIT",
+  "homepage": "https://studiopro.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Blackmvmba88/reproductornuevo.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Blackmvmba88/reproductornuevo/issues"
+  },
   "dependencies": {
     "express": "^4.18.2",
     "cors": "^2.8.5",
@@ -27,10 +53,165 @@
     "dotenv": "^16.3.1"
   },
   "devDependencies": {
+    "electron": "^28.0.0",
+    "electron-builder": "^24.9.1",
     "nodemon": "^3.0.2"
   },
   "engines": {
     "node": ">=16.0.0",
     "npm": ">=8.0.0"
+  },
+  "build": {
+    "appId": "com.studiopro.app",
+    "productName": "Studio Pro",
+    "copyright": "Copyright © 2025 Studio Pro Team",
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "files": [
+      "**/*",
+      "!**/*.ts",
+      "!*.map",
+      "!.env",
+      "!.env.example",
+      "!README*.md",
+      "!CONTRIBUTING.md",
+      "!ROADMAP.md",
+      "!ARCHITECTURE.md",
+      "!VALIDATION_REPORT.md",
+      "!OAUTH_SETUP.md"
+    ],
+    "extraResources": [
+      {
+        "from": "assets",
+        "to": "assets"
+      }
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64",
+            "ia32"
+          ]
+        },
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "build/icon.ico",
+      "artifactName": "${productName}-${version}-${arch}-Setup.${ext}",
+      "publisherName": "Studio Pro Team",
+      "verifyUpdateCodeSignature": false
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": true,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Studio Pro",
+      "license": "LICENSE",
+      "installerIcon": "build/icon.ico",
+      "uninstallerIcon": "build/icon.ico",
+      "installerHeaderIcon": "build/icon.ico"
+    },
+    "mac": {
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
+        },
+        {
+          "target": "zip",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
+        }
+      ],
+      "icon": "build/icon.icns",
+      "category": "public.app-category.productivity",
+      "artifactName": "${productName}-${version}-${arch}.${ext}",
+      "hardenedRuntime": true,
+      "gatekeeperAssess": false,
+      "entitlements": "build/entitlements.mac.plist",
+      "entitlementsInherit": "build/entitlements.mac.plist"
+    },
+    "dmg": {
+      "contents": [
+        {
+          "x": 130,
+          "y": 220
+        },
+        {
+          "x": 410,
+          "y": 220,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ],
+      "window": {
+        "width": 540,
+        "height": 380
+      },
+      "title": "Install ${productName}",
+      "icon": "build/icon.icns",
+      "background": "build/background.png"
+    },
+    "linux": {
+      "target": [
+        {
+          "target": "AppImage",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
+        },
+        {
+          "target": "deb",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
+        },
+        {
+          "target": "rpm",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "snap",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "build/icons",
+      "category": "AudioVideo;Audio;Video;Multimedia",
+      "artifactName": "${productName}-${version}-${arch}.${ext}",
+      "synopsis": "Professional Audio/Video Editor",
+      "description": "Studio Pro is a professional audio and video editing suite with cloud integration and cross-platform support.",
+      "desktop": {
+        "Name": "Studio Pro",
+        "Comment": "Professional Audio/Video Editor",
+        "Categories": "AudioVideo;Audio;Video;Multimedia",
+        "MimeType": "video/mp4;video/x-matroska;audio/mpeg;audio/x-wav"
+      }
+    },
+    "snap": {
+      "confinement": "strict",
+      "grade": "stable",
+      "summary": "Professional Audio/Video Editor"
+    }
   }
 }
