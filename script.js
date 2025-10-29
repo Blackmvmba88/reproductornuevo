@@ -14,6 +14,7 @@ class MusicPlayer {
         this.analyser = null;
         this.dataArray = null;
         this.source = null;
+        this.eqInterval = null;
         
         this.initializeElements();
         this.attachEventListeners();
@@ -564,7 +565,7 @@ class MusicPlayer {
         this.volumeSlider.value = value;
         
         // Update mute button icon
-        if (value == 0) {
+        if (value === 0) {
             this.showMuteIcon(true);
         } else {
             this.showMuteIcon(false);
@@ -703,15 +704,21 @@ class MusicPlayer {
     
     updateEqualizer() {
         if (!this.analyser || !this.isPlaying) {
-            // Random animation when not playing
-            setInterval(() => {
-                if (!this.isPlaying) {
-                    this.eqBars.forEach(bar => {
-                        const height = Math.random() * 30 + 10;
-                        bar.style.height = `${height}px`;
-                    });
-                }
-            }, 200);
+            // Random animation when not playing (only set once)
+            if (!this.eqInterval) {
+                this.eqInterval = setInterval(() => {
+                    if (!this.isPlaying) {
+                        this.eqBars.forEach(bar => {
+                            const height = Math.random() * 30 + 10;
+                            bar.style.height = `${height}px`;
+                        });
+                    } else {
+                        // Clear interval when playing starts
+                        clearInterval(this.eqInterval);
+                        this.eqInterval = null;
+                    }
+                }, 200);
+            }
             return;
         }
         
