@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Studio Pro - Editor de Audio y Video Profesional</title>
+    <link rel="stylesheet" href="editor-styles.css">
+</head>
+<body>
+    <!-- Main Application Container -->
+    <div class="app-container">
+        <!-- Top Menu Bar -->
+        <div class="menu-bar">
+            <div class="menu-logo">
+                <svg viewBox="0 0 24 24" width="24" height="24">
+                    <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5zm0 18c-4 0-7-3-7-7V8.3l7-3.11 7 3.11V13c0 4-3 7-7 7z"/>
+                </svg>
+                <span>Studio Pro</span>
+            </div>
+            <nav class="main-menu">
+                <div class="menu-item">
+                    <button class="menu-btn">Archivo</button>
+                    <div class="dropdown-menu">
+                        <button class="dropdown-item" id="newProject">📄 Nuevo Proyecto</button>
+                        <button class="dropdown-item" id="openProject">📂 Abrir Proyecto</button>
+                        <button class="dropdown-item" id="saveProject">💾 Guardar</button>
+                        <button class="dropdown-item" id="saveAsProject">💾 Guardar Como...</button>
+                        <hr>
+                        <button class="dropdown-item" id="importMedia">📥 Importar Media</button>
+                        <button class="dropdown-item" id="exportProject">📤 Exportar Video</button>
+                        <hr>
+                        <button class="dropdown-item" id="projectSettings">⚙️ Configuración</button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <button class="menu-btn">Editar</button>
+                    <div class="dropdown-menu">
+                        <button class="dropdown-item" id="undo">↶ Deshacer (Ctrl+Z)</button>
+                        <button class="dropdown-item" id="redo">↷ Rehacer (Ctrl+Y)</button>
+                        <hr>
+                        <button class="dropdown-item" id="cut">✂️ Cortar (Ctrl+X)</button>
+                        <button class="dropdown-item" id="copy">📋 Copiar (Ctrl+C)</button>
+                        <button class="dropdown-item" id="paste">📋 Pegar (Ctrl+V)</button>
+                        <button class="dropdown-item" id="delete">🗑️ Eliminar (Del)</button>
+                        <hr>
+                        <button class="dropdown-item" id="selectAll">✅ Seleccionar Todo</button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <button class="menu-btn">Ver</button>
+                    <div class="dropdown-menu">
+                        <button class="dropdown-item" id="toggleMediaLibrary">📚 Biblioteca de Medios</button>
+                        <button class="dropdown-item" id="toggleEffects">✨ Panel de Efectos</button>
+                        <button class="dropdown-item" id="toggleTransitions">🎬 Transiciones</button>
+                        <button class="dropdown-item" id="toggleAudioMixer">🎚️ Mezclador de Audio</button>
+                        <hr>
+                        <button class="dropdown-item" id="fullscreen">🖥️ Pantalla Completa</button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <button class="menu-btn">Audio</button>
+                    <div class="dropdown-menu">
+                        <button class="dropdown-item" id="recordAudio">🎤 Grabar Audio</button>
+                        <button class="dropdown-item" id="audioEffects">🎛️ Efectos de Audio</button>
+                        <button class="dropdown-item" id="masteringTool">🎚️ Masterización</button>
+                        <button class="dropdown-item" id="normalizeAudio">📊 Normalizar</button>
+                        <button class="dropdown-item" id="removeNoise">🔇 Reducir Ruido</button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <button class="menu-btn">Video</button>
+                    <div class="dropdown-menu">
+                        <button class="dropdown-item" id="splitClip">✂️ Dividir Clip</button>
+                        <button class="dropdown-item" id="trimClip">📏 Recortar</button>
+                        <button class="dropdown-item" id="cropVideo">🖼️ Recortar Video</button>
+                        <button class="dropdown-item" id="rotateVideo">🔄 Rotar</button>
+                        <button class="dropdown-item" id="speedControl">⏩ Velocidad</button>
+                        <hr>
+                        <button class="dropdown-item" id="chromaKey">🟩 Chroma Key</button>
+                        <button class="dropdown-item" id="colorCorrection">🎨 Corrección de Color</button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <button class="menu-btn">Ayuda</button>
+                    <div class="dropdown-menu">
+                        <button class="dropdown-item" id="documentation">📖 Documentación</button>
+                        <button class="dropdown-item" id="shortcuts">⌨️ Atajos de Teclado</button>
+                        <button class="dropdown-item" id="about">ℹ️ Acerca de</button>
+                    </div>
+                </div>
+            </nav>
+            <div class="menu-actions">
+                <button class="icon-btn" id="renderBtn" title="Renderizar Video">
+                    <svg viewBox="0 0 24 24" width="20" height="20">
+                        <path d="M8 5v14l11-7z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Main Workspace -->
+        <div class="workspace">
+            <!-- Left Panel - Media Library -->
+            <div class="left-panel panel">
+                <div class="panel-header">
+                    <h3>📚 Biblioteca de Medios</h3>
+                    <button class="panel-collapse">−</button>
+                </div>
+                <div class="panel-tabs">
+                    <button class="tab-btn active" data-tab="media">Media</button>
+                    <button class="tab-btn" data-tab="audio">Audio</button>
+                    <button class="tab-btn" data-tab="effects">Efectos</button>
+                    <button class="tab-btn" data-tab="transitions">Transiciones</button>
+                </div>
+                <div class="panel-content">
+                    <!-- Media Tab -->
+                    <div class="tab-content active" id="media-tab">
+                        <div class="import-area">
+                            <button class="import-btn" id="importFiles">
+                                <svg viewBox="0 0 24 24" width="32" height="32">
+                                    <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                                </svg>
+                                <span>Importar Archivos</span>
+                            </button>
+                        </div>
+                        <div class="media-grid" id="mediaGrid">
+                            <!-- Media items will be added here -->
+                        </div>
+                    </div>
+
+                    <!-- Audio Tab -->
+                    <div class="tab-content" id="audio-tab">
+                        <div class="audio-library">
+                            <h4>🎵 Música</h4>
+                            <div class="audio-items" id="musicItems"></div>
+                            <h4>🔊 Efectos de Sonido</h4>
+                            <div class="audio-items" id="sfxItems"></div>
+                        </div>
+                    </div>
+
+                    <!-- Effects Tab -->
+                    <div class="tab-content" id="effects-tab">
+                        <div class="effects-library">
+                            <div class="effect-category">
+                                <h4>🎨 Efectos de Video</h4>
+                                <div class="effect-grid">
+                                    <button class="effect-item" data-effect="blur">🌫️ Blur</button>
+                                    <button class="effect-item" data-effect="brightness">☀️ Brillo</button>
+                                    <button class="effect-item" data-effect="contrast">⚫ Contraste</button>
+                                    <button class="effect-item" data-effect="saturation">🎨 Saturación</button>
+                                    <button class="effect-item" data-effect="sepia">🟤 Sepia</button>
+                                    <button class="effect-item" data-effect="grayscale">⚪ Blanco/Negro</button>
+                                    <button class="effect-item" data-effect="invert">🔄 Invertir</button>
+                                    <button class="effect-item" data-effect="vignette">🔦 Viñeta</button>
+                                </div>
+                            </div>
+                            <div class="effect-category">
+                                <h4>🎭 Efectos Creativos</h4>
+                                <div class="effect-grid">
+                                    <button class="effect-item" data-effect="glitch">⚡ Glitch</button>
+                                    <button class="effect-item" data-effect="pixelate">🔲 Pixelar</button>
+                                    <button class="effect-item" data-effect="chromatic">🌈 Aberración</button>
+                                    <button class="effect-item" data-effect="oldfilm">📽️ Film Antiguo</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Transitions Tab -->
+                    <div class="tab-content" id="transitions-tab">
+                        <div class="transitions-library">
+                            <h4>🎬 Transiciones</h4>
+                            <div class="transition-grid">
+                                <button class="transition-item" data-transition="fade">⬜ Fade</button>
+                                <button class="transition-item" data-transition="dissolve">🌟 Dissolve</button>
+                                <button class="transition-item" data-transition="wipe">➡️ Wipe</button>
+                                <button class="transition-item" data-transition="slide">⏩ Slide</button>
+                                <button class="transition-item" data-transition="zoom">🔍 Zoom</button>
+                                <button class="transition-item" data-transition="spin">🔄 Spin</button>
+                                <button class="transition-item" data-transition="push">⬆️ Push</button>
+                                <button class="transition-item" data-transition="cross">✖️ Cross Fade</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Center Area - Preview & Timeline -->
+            <div class="center-area">
+                <!-- Preview Monitor -->
+                <div class="preview-container">
+                    <div class="monitor-header">
+                        <h3>📺 Vista Previa</h3>
+                        <div class="monitor-controls">
+                            <select id="previewQuality" class="quality-select">
+                                <option value="full">Full Quality</option>
+                                <option value="half" selected>1/2 Quality</option>
+                                <option value="quarter">1/4 Quality</option>
+                            </select>
+                            <button class="icon-btn" id="toggleFullscreenPreview" title="Pantalla Completa">
+                                <svg viewBox="0 0 24 24" width="16" height="16">
+                                    <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="monitor">
+                        <canvas id="previewCanvas"></canvas>
+                        <video id="previewVideo" style="display:none;"></video>
+                        <div class="playhead-info">
+                            <span id="currentTimecode">00:00:00:00</span>
+                        </div>
+                    </div>
+                    <div class="playback-controls">
+                        <button class="play-btn" id="goToStart">⏮️</button>
+                        <button class="play-btn" id="stepBackward">⏪</button>
+                        <button class="play-btn large" id="playPause">
+                            <svg class="play-icon" viewBox="0 0 24 24" width="32" height="32">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                            <svg class="pause-icon" viewBox="0 0 24 24" width="32" height="32" style="display:none;">
+                                <path d="M6 4h4v16H6zM14 4h4v16h-4z"/>
+                            </svg>
+                        </button>
+                        <button class="play-btn" id="stepForward">⏩</button>
+                        <button class="play-btn" id="goToEnd">⏭️</button>
+                        <div class="timecode-display">
+                            <input type="text" id="timecodeInput" value="00:00:00:00" class="timecode-input">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Timeline -->
+                <div class="timeline-container">
+                    <div class="timeline-header">
+                        <h3>🎬 Línea de Tiempo</h3>
+                        <div class="timeline-tools">
+                            <button class="tool-btn active" id="selectTool" title="Seleccionar">
+                                <svg viewBox="0 0 24 24" width="16" height="16">
+                                    <path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z"/>
+                                </svg>
+                            </button>
+                            <button class="tool-btn" id="cutTool" title="Cortar">
+                                <svg viewBox="0 0 24 24" width="16" height="16">
+                                    <path d="M9.64 7.64c.23-.5.36-1.05.36-1.64 0-2.21-1.79-4-4-4S2 3.79 2 6s1.79 4 4 4c.59 0 1.14-.13 1.64-.36L10 12l-2.36 2.36C7.14 14.13 6.59 14 6 14c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4c0-.59-.13-1.14-.36-1.64L12 14l7 7h3v-1L9.64 7.64z"/>
+                                </svg>
+                            </button>
+                            <button class="tool-btn" id="razorTool" title="Dividir">
+                                <svg viewBox="0 0 24 24" width="16" height="16">
+                                    <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+                                </svg>
+                            </button>
+                            <div class="divider"></div>
+                            <button class="tool-btn" id="zoomIn" title="Zoom In">🔍+</button>
+                            <button class="tool-btn" id="zoomOut" title="Zoom Out">🔍−</button>
+                            <button class="tool-btn" id="fitTimeline" title="Ajustar">⬜</button>
+                            <div class="divider"></div>
+                            <button class="tool-btn" id="snapToggle" title="Ajustar a Grid" class="active">🧲</button>
+                        </div>
+                    </div>
+
+                    <div class="timeline-workspace">
+                        <!-- Track Controls -->
+                        <div class="track-controls">
+                            <div class="track-control video-track">
+                                <div class="track-header">
+                                    <button class="track-toggle">🎥</button>
+                                    <span>Video 1</span>
+                                    <button class="track-lock">🔓</button>
+                                </div>
+                                <div class="track-volume">
+                                    <input type="range" min="0" max="100" value="100">
+                                </div>
+                            </div>
+                            <div class="track-control audio-track">
+                                <div class="track-header">
+                                    <button class="track-toggle">🎵</button>
+                                    <span>Audio 1</span>
+                                    <button class="track-lock">🔓</button>
+                                </div>
+                                <div class="track-volume">
+                                    <input type="range" min="0" max="100" value="70">
+                                </div>
+                            </div>
+                            <div class="track-control audio-track">
+                                <div class="track-header">
+                                    <button class="track-toggle">🎵</button>
+                                    <span>Audio 2</span>
+                                    <button class="track-lock">🔓</button>
+                                </div>
+                                <div class="track-volume">
+                                    <input type="range" min="0" max="100" value="70">
+                                </div>
+                            </div>
+                            <button class="add-track-btn">+ Agregar Pista</button>
+                        </div>
+
+                        <!-- Timeline Tracks -->
+                        <div class="timeline-tracks">
+                            <div class="timeline-ruler">
+                                <canvas id="rulerCanvas"></canvas>
+                            </div>
+                            <div class="tracks-container" id="tracksContainer">
+                                <div class="track video-track" id="videoTrack1" data-track="video-1">
+                                    <!-- Clips will be added here -->
+                                </div>
+                                <div class="track audio-track" id="audioTrack1" data-track="audio-1">
+                                    <!-- Audio clips will be added here -->
+                                </div>
+                                <div class="track audio-track" id="audioTrack2" data-track="audio-2">
+                                    <!-- Audio clips will be added here -->
+                                </div>
+                            </div>
+                            <div class="playhead" id="playhead">
+                                <div class="playhead-line"></div>
+                                <div class="playhead-handle"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Panel - Properties & Effects -->
+            <div class="right-panel panel">
+                <div class="panel-header">
+                    <h3>⚙️ Propiedades</h3>
+                    <button class="panel-collapse">−</button>
+                </div>
+                <div class="panel-tabs">
+                    <button class="tab-btn active" data-tab="properties">Propiedades</button>
+                    <button class="tab-btn" data-tab="effects-panel">Efectos</button>
+                    <button class="tab-btn" data-tab="audio-mixer">Mixer</button>
+                </div>
+                <div class="panel-content">
+                    <!-- Properties Tab -->
+                    <div class="tab-content active" id="properties-tab">
+                        <div class="properties-section">
+                            <div class="no-selection">
+                                <p>📋 Selecciona un clip para ver sus propiedades</p>
+                            </div>
+                            <div class="clip-properties" style="display:none;">
+                                <!-- Transform -->
+                                <div class="property-group">
+                                    <h4>📐 Transformar</h4>
+                                    <div class="property-row">
+                                        <label>Posición X</label>
+                                        <input type="number" id="posX" value="0">
+                                    </div>
+                                    <div class="property-row">
+                                        <label>Posición Y</label>
+                                        <input type="number" id="posY" value="0">
+                                    </div>
+                                    <div class="property-row">
+                                        <label>Escala</label>
+                                        <input type="range" id="scale" min="0" max="200" value="100">
+                                        <span class="value-label">100%</span>
+                                    </div>
+                                    <div class="property-row">
+                                        <label>Rotación</label>
+                                        <input type="range" id="rotation" min="0" max="360" value="0">
+                                        <span class="value-label">0°</span>
+                                    </div>
+                                </div>
+
+                                <!-- Video Properties -->
+                                <div class="property-group">
+                                    <h4>🎨 Video</h4>
+                                    <div class="property-row">
+                                        <label>Opacidad</label>
+                                        <input type="range" id="opacity" min="0" max="100" value="100">
+                                        <span class="value-label">100%</span>
+                                    </div>
+                                    <div class="property-row">
+                                        <label>Brillo</label>
+                                        <input type="range" id="brightness" min="-100" max="100" value="0">
+                                        <span class="value-label">0</span>
+                                    </div>
+                                    <div class="property-row">
+                                        <label>Contraste</label>
+                                        <input type="range" id="contrast" min="-100" max="100" value="0">
+                                        <span class="value-label">0</span>
+                                    </div>
+                                    <div class="property-row">
+                                        <label>Saturación</label>
+                                        <input type="range" id="saturation" min="-100" max="100" value="0">
+                                        <span class="value-label">0</span>
+                                    </div>
+                                </div>
+
+                                <!-- Audio Properties -->
+                                <div class="property-group">
+                                    <h4>🔊 Audio</h4>
+                                    <div class="property-row">
+                                        <label>Volumen</label>
+                                        <input type="range" id="volume" min="0" max="200" value="100">
+                                        <span class="value-label">100%</span>
+                                    </div>
+                                    <div class="property-row">
+                                        <label>Balance</label>
+                                        <input type="range" id="balance" min="-100" max="100" value="0">
+                                        <span class="value-label">Centro</span>
+                                    </div>
+                                    <div class="property-row">
+                                        <label>Velocidad</label>
+                                        <input type="range" id="speed" min="25" max="400" value="100">
+                                        <span class="value-label">1.0x</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Effects Panel Tab -->
+                    <div class="tab-content" id="effects-panel-tab">
+                        <div class="applied-effects">
+                            <h4>Efectos Aplicados</h4>
+                            <div class="effects-list" id="appliedEffectsList">
+                                <p class="empty-state">No hay efectos aplicados</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Audio Mixer Tab -->
+                    <div class="tab-content" id="audio-mixer-tab">
+                        <div class="mixer-section">
+                            <h4>🎚️ Mezclador de Audio</h4>
+                            <div class="mixer-channels">
+                                <div class="mixer-channel">
+                                    <div class="channel-fader">
+                                        <input type="range" class="vertical-slider" min="0" max="100" value="70" orient="vertical">
+                                    </div>
+                                    <div class="channel-meter">
+                                        <div class="meter-bar"></div>
+                                    </div>
+                                    <div class="channel-label">Master</div>
+                                </div>
+                                <div class="mixer-channel">
+                                    <div class="channel-fader">
+                                        <input type="range" class="vertical-slider" min="0" max="100" value="70" orient="vertical">
+                                    </div>
+                                    <div class="channel-meter">
+                                        <div class="meter-bar"></div>
+                                    </div>
+                                    <div class="channel-label">Track 1</div>
+                                </div>
+                                <div class="mixer-channel">
+                                    <div class="channel-fader">
+                                        <input type="range" class="vertical-slider" min="0" max="100" value="70" orient="vertical">
+                                    </div>
+                                    <div class="channel-meter">
+                                        <div class="meter-bar"></div>
+                                    </div>
+                                    <div class="channel-label">Track 2</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <div class="status-item">
+                <span>📁 Proyecto:</span>
+                <span id="projectName">Sin título</span>
+            </div>
+            <div class="status-item">
+                <span>⏱️ Duración:</span>
+                <span id="projectDuration">00:00:00</span>
+            </div>
+            <div class="status-item">
+                <span>🎬 FPS:</span>
+                <span id="projectFPS">30</span>
+            </div>
+            <div class="status-item">
+                <span>📺 Resolución:</span>
+                <span id="projectResolution">1920x1080</span>
+            </div>
+            <div class="status-item">
+                <span>💾 Estado:</span>
+                <span id="saveStatus">Guardado</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hidden file inputs -->
+    <input type="file" id="fileInput" accept="video/*,audio/*,image/*" multiple style="display: none;">
+    <input type="file" id="projectInput" accept=".stpro" style="display: none;">
+
+    <script src="editor.js"></script>
+</body>
+</html>
