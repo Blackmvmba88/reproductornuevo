@@ -72,6 +72,11 @@
                     <path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z"/>
                 </svg>
             </button>
+            <button class="control-btn" id="masteringBtn" title="Masterización">
+                <svg viewBox="0 0 24 24" width="20" height="20">
+                    <path d="M3 17v2h6v-2H3zM3 5v2h10V5H3zm10 16v-2h8v-2h-8v-2h-2v6h2zM7 9v2H3v2h4v2h2V9H7zm14 4v-2H11v2h10zm-6-4h2V7h4V5h-4V3h-2v6z"/>
+                </svg>
+            </button>
         </div>
 
         <!-- Volume Control -->
@@ -127,6 +132,168 @@
             <div class="eq-bar"></div>
             <div class="eq-bar"></div>
             <div class="eq-bar"></div>
+        </div>
+    </div>
+
+    <!-- Mastering Menu Modal -->
+    <div id="masteringModal" class="mastering-modal">
+        <div class="mastering-content">
+            <div class="mastering-header">
+                <h2>🎚️ Masterización de Audio</h2>
+                <button class="close-mastering" id="closeMastering">×</button>
+            </div>
+            
+            <div class="mastering-body">
+                <!-- Gain Control -->
+                <div class="mastering-section">
+                    <label class="mastering-label">
+                        <span>Ganancia (Gain)</span>
+                        <span class="value-display" id="gainValue">0 dB</span>
+                    </label>
+                    <input type="range" id="gainControl" min="-20" max="20" value="0" step="0.5" class="mastering-slider">
+                    <div class="slider-markers">
+                        <span>-20dB</span>
+                        <span>0dB</span>
+                        <span>+20dB</span>
+                    </div>
+                </div>
+
+                <!-- Bass Control -->
+                <div class="mastering-section">
+                    <label class="mastering-label">
+                        <span>Bajos (Bass) - 60Hz</span>
+                        <span class="value-display" id="bassValue">0 dB</span>
+                    </label>
+                    <input type="range" id="bassControl" min="-12" max="12" value="0" step="0.5" class="mastering-slider">
+                    <div class="slider-markers">
+                        <span>-12dB</span>
+                        <span>0dB</span>
+                        <span>+12dB</span>
+                    </div>
+                </div>
+
+                <!-- Mid Control -->
+                <div class="mastering-section">
+                    <label class="mastering-label">
+                        <span>Medios (Mid) - 1kHz</span>
+                        <span class="value-display" id="midValue">0 dB</span>
+                    </label>
+                    <input type="range" id="midControl" min="-12" max="12" value="0" step="0.5" class="mastering-slider">
+                    <div class="slider-markers">
+                        <span>-12dB</span>
+                        <span>0dB</span>
+                        <span>+12dB</span>
+                    </div>
+                </div>
+
+                <!-- Treble Control -->
+                <div class="mastering-section">
+                    <label class="mastering-label">
+                        <span>Agudos (Treble) - 8kHz</span>
+                        <span class="value-display" id="trebleValue">0 dB</span>
+                    </label>
+                    <input type="range" id="trebleControl" min="-12" max="12" value="0" step="0.5" class="mastering-slider">
+                    <div class="slider-markers">
+                        <span>-12dB</span>
+                        <span>0dB</span>
+                        <span>+12dB</span>
+                    </div>
+                </div>
+
+                <!-- Compressor -->
+                <div class="mastering-section">
+                    <label class="mastering-label">
+                        <span>Compresor (Threshold)</span>
+                        <span class="value-display" id="compressorValue">-24 dB</span>
+                    </label>
+                    <input type="range" id="compressorControl" min="-100" max="0" value="-24" step="1" class="mastering-slider">
+                    <div class="slider-markers">
+                        <span>-100dB</span>
+                        <span>-24dB</span>
+                        <span>0dB</span>
+                    </div>
+                </div>
+
+                <!-- Ratio -->
+                <div class="mastering-section">
+                    <label class="mastering-label">
+                        <span>Ratio de Compresión</span>
+                        <span class="value-display" id="ratioValue">12:1</span>
+                    </label>
+                    <input type="range" id="ratioControl" min="1" max="20" value="12" step="1" class="mastering-slider">
+                    <div class="slider-markers">
+                        <span>1:1</span>
+                        <span>12:1</span>
+                        <span>20:1</span>
+                    </div>
+                </div>
+
+                <!-- Limiter -->
+                <div class="mastering-section">
+                    <label class="mastering-label">
+                        <span>Limitador (Limiter)</span>
+                        <span class="value-display" id="limiterValue">-1 dB</span>
+                    </label>
+                    <input type="range" id="limiterControl" min="-20" max="0" value="-1" step="0.5" class="mastering-slider">
+                    <div class="slider-markers">
+                        <span>-20dB</span>
+                        <span>-1dB</span>
+                        <span>0dB</span>
+                    </div>
+                </div>
+
+                <!-- Stereo Width -->
+                <div class="mastering-section">
+                    <label class="mastering-label">
+                        <span>Ancho Estéreo</span>
+                        <span class="value-display" id="stereoValue">100%</span>
+                    </label>
+                    <input type="range" id="stereoControl" min="0" max="200" value="100" step="5" class="mastering-slider">
+                    <div class="slider-markers">
+                        <span>0%</span>
+                        <span>100%</span>
+                        <span>200%</span>
+                    </div>
+                </div>
+
+                <!-- Presets -->
+                <div class="mastering-section">
+                    <label class="mastering-label">
+                        <span>Presets de Masterización</span>
+                    </label>
+                    <div class="preset-buttons">
+                        <button class="preset-btn" data-preset="flat">🎵 Plano</button>
+                        <button class="preset-btn" data-preset="bass">🔊 Bass Boost</button>
+                        <button class="preset-btn" data-preset="bright">✨ Brillante</button>
+                        <button class="preset-btn" data-preset="vocal">🎤 Vocal</button>
+                        <button class="preset-btn" data-preset="rock">🎸 Rock</button>
+                        <button class="preset-btn" data-preset="electronic">🎹 Electrónica</button>
+                        <button class="preset-btn" data-preset="classical">🎻 Clásica</button>
+                        <button class="preset-btn" data-preset="loudness">📢 Loudness</button>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="mastering-actions">
+                    <button class="action-btn reset-btn" id="resetMastering">
+                        <svg viewBox="0 0 24 24" width="16" height="16">
+                            <path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/>
+                        </svg>
+                        Resetear
+                    </button>
+                    <button class="action-btn apply-btn" id="applyMastering">
+                        <svg viewBox="0 0 24 24" width="16" height="16">
+                            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                        </svg>
+                        Aplicar
+                    </button>
+                </div>
+
+                <!-- Info -->
+                <div class="mastering-info">
+                    <p>💡 Los ajustes se aplican en tiempo real al audio que se está reproduciendo.</p>
+                </div>
+            </div>
         </div>
     </div>
 
