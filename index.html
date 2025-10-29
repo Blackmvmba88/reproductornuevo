@@ -6,6 +6,8 @@
     <title>Reproductor de Música HD - Estilo Winamp</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="themes.css">
+    <!-- Hydra Video Synth -->
+    <script src="https://unpkg.com/hydra-synth@1.3.20/dist/hydra-synth.js"></script>
 </head>
 <body>
     <div class="player-container">
@@ -31,6 +33,8 @@
                 </div>
             </div>
             <canvas id="visualizer"></canvas>
+            <!-- Hydra Live Visuals Canvas (overlay) -->
+            <canvas id="hydraCanvas" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.7; pointer-events: none; display: none;"></canvas>
         </div>
 
         <!-- Progress Bar -->
@@ -76,6 +80,17 @@
             <button class="control-btn" id="masteringBtn" title="Masterización">
                 <svg viewBox="0 0 24 24" width="20" height="20">
                     <path d="M3 17v2h6v-2H3zM3 5v2h10V5H3zm10 16v-2h8v-2h-8v-2h-2v6h2zM7 9v2H3v2h4v2h2V9H7zm14 4v-2H11v2h10zm-6-4h2V7h4V5h-4V3h-2v6z"/>
+                </svg>
+            </button>
+            <!-- Hydra Visual Controls -->
+            <button class="control-btn" id="hydraToggle" title="Activar/Desactivar Visuales Hydra (H)">
+                <svg viewBox="0 0 24 24" width="20" height="20">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
+                </svg>
+            </button>
+            <button class="control-btn" id="hydraNext" title="Siguiente Visual (→)" style="display:none;">
+                <svg viewBox="0 0 24 24" width="20" height="20">
+                    <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
                 </svg>
             </button>
         </div>
@@ -301,6 +316,7 @@
     <input type="file" id="fileInput" accept="audio/*" multiple style="display: none;">
     <audio id="audioPlayer"></audio>
 
+    <script src="hydra-visuals.js"></script>
     <script src="theme-manager.js"></script>
     <script src="script.js"></script>
 </body>

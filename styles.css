@@ -456,6 +456,28 @@ body {
     }
 }
 
+@keyframes slideIn {
+    from {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOut {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+}
+
 .playing .eq-bar {
     animation: pulse 0.5s ease-in-out infinite;
 }
@@ -470,6 +492,11 @@ body {
 .eq-bar:nth-child(8) { animation-delay: 0.3s; }
 .eq-bar:nth-child(9) { animation-delay: 0.2s; }
 .eq-bar:nth-child(10) { animation-delay: 0.1s; }
+
+/* Hydra toast notifications */
+.hydra-toast {
+    animation: slideIn 0.3s ease-out;
+}
 
 /* Responsive */
 @media (max-width: 650px) {

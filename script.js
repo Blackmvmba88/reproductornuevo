@@ -16,10 +16,15 @@ class MusicPlayer {
         this.source = null;
         this.eqInterval = null;
         
+        // Hydra visuals
+        this.hydra = null;
+        this.hydraActive = false;
+        
         this.initializeElements();
         this.attachEventListeners();
         this.setupVisualization();
         this.updateEqualizer();
+        this.initializeHydra();
     }
     
     initializeElements() {
@@ -54,6 +59,11 @@ class MusicPlayer {
         this.canvasCtx = this.canvas.getContext('2d');
         this.eqBars = document.querySelectorAll('.eq-bar');
         this.equalizerSection = document.querySelector('.equalizer-section');
+        
+        // Hydra controls
+        this.hydraCanvas = document.getElementById('hydraCanvas');
+        this.hydraToggleBtn = document.getElementById('hydraToggle');
+        this.hydraNextBtn = document.getElementById('hydraNext');
     }
     
     attachEventListeners() {
@@ -89,6 +99,14 @@ class MusicPlayer {
         
         // Keyboard shortcuts
         document.addEventListener('keydown', (e) => this.handleKeyboard(e));
+        
+        // Hydra controls
+        if (this.hydraToggleBtn) {
+            this.hydraToggleBtn.addEventListener('click', () => this.toggleHydra());
+        }
+        if (this.hydraNextBtn) {
+            this.hydraNextBtn.addEventListener('click', () => this.nextHydraPreset());
+        }
         
         // Set initial volume
         this.setVolume(70);
@@ -795,7 +813,140 @@ class MusicPlayer {
             case 'KeyM':
                 this.toggleMute();
                 break;
+            case 'KeyH':
+                // Toggle Hydra visuals with H key
+                this.toggleHydra();
+                break;
+            case 'ArrowRight':
+                if (event.altKey) {
+                    // Alt + Arrow Right: Next Hydra preset
+                    event.preventDefault();
+                    this.nextHydraPreset();
+                }
+                break;
+            case 'ArrowLeft':
+                if (event.altKey) {
+                    // Alt + Arrow Left: Previous Hydra preset
+                    event.preventDefault();
+                    this.previousHydraPreset();
+                }
+                break;
         }
+    }
+    
+    // ===== HYDRA VISUAL METHODS =====
+    
+    async initializeHydra() {
+        try {
+            // Wait for Hydra to be available
+            if (typeof HydraVisuals === 'undefined') {
+                console.warn('⚠️ HydraVisuals not loaded');
+                return;
+            }
+            
+            this.hydra = new HydraVisuals();
+            console.log('✅ Hydra visuals ready');
+        } catch (error) {
+            console.error('❌ Error initializing Hydra:', error);
+        }
+    }
+    
+    async toggleHydra() {
+        if (!this.hydra) {
+            await this.initializeHydra();
+        }
+        
+        if (!this.hydra) {
+            this.showNotification('⚠️ Hydra no disponible');
+            return;
+        }
+        
+        this.hydraActive = !this.hydraActive;
+        
+        if (this.hydraActive) {
+            // Initialize Hydra with canvas and analyser
+            if (!this.hydra.isInitialized) {
+                // Make sure audio context is created
+                if (!this.audioContext) {
+                    this.initAudioContext();
+                }
+                
+                await this.hydra.init(this.hydraCanvas, this.analyser);
+            } else {
+                this.hydra.startVisual();
+            }
+            
+            // Show Hydra canvas
+            this.hydraCanvas.style.display = 'block';
+            this.hydraNextBtn.style.display = 'inline-block';
+            this.hydraToggleBtn.style.opacity = '1';
+            this.hydraToggleBtn.style.color = 'var(--accent-color)';
+            
+            const presetName = this.hydra.getCurrentPreset();
+            this.showNotification(`🎨 Hydra activado: ${presetName}`);
+        } else {
+            // Stop Hydra
+            if (this.hydra) {
+                this.hydra.stop();
+            }
+            
+            // Hide Hydra canvas
+            this.hydraCanvas.style.display = 'none';
+            this.hydraNextBtn.style.display = 'none';
+            this.hydraToggleBtn.style.opacity = '0.7';
+            this.hydraToggleBtn.style.color = '';
+            
+            this.showNotification('⏹️ Hydra desactivado');
+        }
+    }
+    
+    nextHydraPreset() {
+        if (!this.hydra || !this.hydraActive) {
+            this.showNotification('⚠️ Activa Hydra primero (H)');
+            return;
+        }
+        
+        const presetName = this.hydra.nextPreset();
+        this.showNotification(`🎨 Visual: ${presetName}`);
+    }
+    
+    previousHydraPreset() {
+        if (!this.hydra || !this.hydraActive) {
+            this.showNotification('⚠️ Activa Hydra primero (H)');
+            return;
+        }
+        
+        const presetName = this.hydra.previousPreset();
+        this.showNotification(`🎨 Visual: ${presetName}`);
+    }
+    
+    showNotification(message) {
+        // Create toast notification
+        const toast = document.createElement('div');
+        toast.className = 'hydra-toast';
+        toast.textContent = message;
+        toast.style.cssText = `
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--button-bg);
+            color: var(--text-primary);
+            padding: 12px 20px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            z-index: 10000;
+            font-size: 14px;
+            font-weight: 500;
+            animation: slideIn 0.3s ease-out;
+        `;
+        
+        document.body.appendChild(toast);
+        
+        setTimeout(() => {
+            toast.style.animation = 'slideOut 0.3s ease-out';
+            setTimeout(() => toast.remove(), 300);
+        }, 2000);
     }
 }
 
