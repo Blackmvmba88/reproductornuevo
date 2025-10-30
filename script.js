@@ -716,13 +716,15 @@ class MusicPlayer {
         const elapsed = currentTime - this.lastFrameTime;
         
         if (elapsed < this.frameInterval) {
-            this.visualizationFrameId = requestAnimationFrame(() => this.updateVisualization());
+            // Use setTimeout instead of immediate requestAnimationFrame when dropping frames
+            const delay = this.frameInterval - elapsed;
+            setTimeout(() => {
+                this.visualizationFrameId = requestAnimationFrame(() => this.updateVisualization());
+            }, delay);
             return;
         }
         
         this.lastFrameTime = currentTime - (elapsed % this.frameInterval);
-        
-        this.visualizationFrameId = requestAnimationFrame(() => this.updateVisualization());
         
         this.analyser.getByteFrequencyData(this.dataArray);
         
@@ -747,6 +749,9 @@ class MusicPlayer {
             
             x += barWidth + 1;
         }
+        
+        // Schedule next frame
+        this.visualizationFrameId = requestAnimationFrame(() => this.updateVisualization());
     }
     
     updateEqualizer() {
@@ -771,7 +776,8 @@ class MusicPlayer {
         
         if (!this.dataArray) return;
         
-        requestAnimationFrame(() => this.updateEqualizer());
+        // Store the frame ID for proper cleanup
+        this.equalizerFrameId = requestAnimationFrame(() => this.updateEqualizer());
         
         this.analyser.getByteFrequencyData(this.dataArray);
         

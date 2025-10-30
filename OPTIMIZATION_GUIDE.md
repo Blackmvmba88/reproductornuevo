@@ -17,12 +17,14 @@
 // IMPACT: Memory leaks in long sessions
 // SEVERITY: High
 
-// Current:
+// Before (incorrect order):
 playlist.splice(index, 1);
 
-// Optimized:
+// After (correct order - revoke before removing):
 URL.revokeObjectURL(playlist[index].url);
 playlist.splice(index, 1);
+
+// Note: Always revoke URLs BEFORE removing from array to prevent reference loss
 ```
 
 #### 2. Canvas Rendering

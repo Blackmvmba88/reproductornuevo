@@ -422,12 +422,17 @@ The Reproductor de Música HD v1.0 is **production-ready** as a frontend-only ap
 ```
 ⚠️ gauge@3.0.2 - Deprecated (no longer supported)
 ⚠️ are-we-there-yet@2.0.0 - Deprecated (no longer supported)
-⚠️ inflight@1.0.6 - Deprecated (memory leak issues)
+🔴 inflight@1.0.6 - CRITICAL: Deprecated with known memory leaks
 ⚠️ glob@7.2.3 - Deprecated (upgrade to v9+ recommended)
 ⚠️ npmlog@5.0.1 - Deprecated (no longer supported)
 ⚠️ rimraf@3.0.2 - Deprecated (upgrade to v4+ recommended)
 
-Recommendation: Update dependencies to latest stable versions
+⚠️ PRIORITY ACTION REQUIRED:
+- HIGH PRIORITY: Update inflight immediately (memory leak issues)
+- MEDIUM PRIORITY: Update glob, rimraf to latest versions
+- LOW PRIORITY: Replace gauge, npmlog, are-we-there-yet
+
+Recommendation: Run `npm audit fix` and update electron-builder dependencies
 ```
 
 ### Code Quality Metrics v2.0
