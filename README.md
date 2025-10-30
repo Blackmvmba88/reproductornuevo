@@ -264,11 +264,11 @@ Ver [OPTIMIZATION_SUMMARY.md](OPTIMIZATION_SUMMARY.md) para detalles completos.
 ## 🗺️ Roadmap
 
 ### v2.1 (Q4 2025 - Próxima versión)
-- [ ] Optimización de rendimiento completa
 - [ ] Testing automatizado (Jest + Playwright)
 - [ ] Actualización de dependencias obsoletas
+- [ ] Validación de optimizaciones con benchmarks
 - [ ] Renderizado de video funcional
-- [ ] Más efectos visuales
+- [ ] Más efectos visuales y transiciones
 
 ### v2.2 (Q1 2026)
 - [ ] IA Integration (auto-edición, subtítulos)
