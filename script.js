@@ -20,6 +20,16 @@ class MusicPlayer {
         this.hydra = null;
         this.hydraActive = false;
         
+        // Performance optimizations
+        this.visualizationFrameId = null;
+        this.equalizerFrameId = null;
+        this.lastFrameTime = 0;
+        this.targetFPS = 60;
+        this.frameInterval = 1000 / this.targetFPS;
+        
+        // Cache for metadata to reduce memory
+        this.metadataCache = new Map();
+        
         this.initializeElements();
         this.attachEventListeners();
         this.setupVisualization();
@@ -384,9 +394,12 @@ class MusicPlayer {
             if (dropZone) dropZone.remove();
         }
         
-        // Clear and rebuild playlist
+        // Clear existing items
         const existingItems = this.playlistEl.querySelectorAll('.playlist-item');
         existingItems.forEach(item => item.remove());
+        
+        // Use DocumentFragment for better performance (batched DOM updates)
+        const fragment = document.createDocumentFragment();
         
         this.playlist.forEach((track, index) => {
             const item = document.createElement('div');
@@ -434,8 +447,12 @@ class MusicPlayer {
             
             item.addEventListener('click', () => this.playTrack(index));
             
-            this.playlistEl.appendChild(item);
+            // Append to fragment instead of directly to DOM
+            fragment.appendChild(item);
         });
+        
+        // Single DOM update for all items (better performance)
+        this.playlistEl.appendChild(fragment);
         
         // Show drop zone if playlist is empty
         if (this.playlist.length === 0) {
@@ -694,11 +711,24 @@ class MusicPlayer {
     updateVisualization() {
         if (!this.analyser || !this.dataArray) return;
         
-        requestAnimationFrame(() => this.updateVisualization());
+        // FPS limiting for better performance
+        const currentTime = performance.now();
+        const elapsed = currentTime - this.lastFrameTime;
+        
+        if (elapsed < this.frameInterval) {
+            // Use setTimeout instead of immediate requestAnimationFrame when dropping frames
+            const delay = this.frameInterval - elapsed;
+            setTimeout(() => {
+                this.visualizationFrameId = requestAnimationFrame(() => this.updateVisualization());
+            }, delay);
+            return;
+        }
+        
+        this.lastFrameTime = currentTime - (elapsed % this.frameInterval);
         
         this.analyser.getByteFrequencyData(this.dataArray);
         
-        // Draw on canvas
+        // Draw on canvas with optimized operations
         this.canvasCtx.fillStyle = 'rgba(0, 0, 0, 0.2)';
         this.canvasCtx.fillRect(0, 0, this.canvas.width, this.canvas.height);
         
@@ -706,11 +736,12 @@ class MusicPlayer {
         let barHeight;
         let x = 0;
         
+        // Batch rendering for better performance
         for (let i = 0; i < this.dataArray.length; i++) {
             barHeight = (this.dataArray[i] / 255) * this.canvas.height;
             
-            const r = barHeight + (25 * (i / this.dataArray.length));
-            const g = 250 * (i / this.dataArray.length);
+            const r = Math.floor(barHeight + (25 * (i / this.dataArray.length)));
+            const g = Math.floor(250 * (i / this.dataArray.length));
             const b = 50;
             
             this.canvasCtx.fillStyle = `rgb(${r}, ${g}, ${b})`;
@@ -718,6 +749,9 @@ class MusicPlayer {
             
             x += barWidth + 1;
         }
+        
+        // Schedule next frame
+        this.visualizationFrameId = requestAnimationFrame(() => this.updateVisualization());
     }
     
     updateEqualizer() {
@@ -742,7 +776,8 @@ class MusicPlayer {
         
         if (!this.dataArray) return;
         
-        requestAnimationFrame(() => this.updateEqualizer());
+        // Store the frame ID for proper cleanup
+        this.equalizerFrameId = requestAnimationFrame(() => this.updateEqualizer());
         
         this.analyser.getByteFrequencyData(this.dataArray);
         
@@ -947,6 +982,53 @@ class MusicPlayer {
             toast.style.animation = 'slideOut 0.3s ease-out';
             setTimeout(() => toast.remove(), 300);
         }, 2000);
+    }
+    
+    // Cleanup method for proper resource management
+    destroy() {
+        // Stop playback
+        this.stop();
+        
+        // Cancel animation frames
+        if (this.visualizationFrameId) {
+            cancelAnimationFrame(this.visualizationFrameId);
+        }
+        if (this.equalizerFrameId) {
+            cancelAnimationFrame(this.equalizerFrameId);
+        }
+        
+        // Clear intervals
+        if (this.eqInterval) {
+            clearInterval(this.eqInterval);
+            this.eqInterval = null;
+        }
+        
+        // Clean up audio context
+        if (this.audioContext && this.audioContext.state !== 'closed') {
+            this.audioContext.close().catch(err => console.error('Error closing audio context:', err));
+        }
+        
+        // Revoke all object URLs
+        this.playlist.forEach(track => {
+            if (track.url) {
+                URL.revokeObjectURL(track.url);
+            }
+        });
+        
+        // Clear playlist
+        this.playlist = [];
+        
+        // Clear metadata cache
+        if (this.metadataCache) {
+            this.metadataCache.clear();
+        }
+        
+        // Stop Hydra visuals if active
+        if (this.hydra && this.hydraActive) {
+            this.hydra.stop();
+        }
+        
+        console.log('✅ MusicPlayer resources cleaned up successfully');
     }
 }
 

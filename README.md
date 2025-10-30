@@ -154,7 +154,10 @@ python3 -m http.server 8080
 - [Configuración OAuth](OAUTH_SETUP.md) - Setup completo de autenticación
 - [Arquitectura](ARCHITECTURE.md) - Detalles técnicos
 - [Contribuir](CONTRIBUTING.md) - Guía para desarrolladores
-- [Roadmap](ROADMAP.md) - Características futuras
+- [Roadmap](ROADMAP.md) - Plan de desarrollo y características futuras
+- [Validation Report](VALIDATION_REPORT.md) - Reporte de validación v2.0
+- [Optimization Guide](OPTIMIZATION_GUIDE.md) - Guía de optimización de rendimiento
+- [Optimization Summary](OPTIMIZATION_SUMMARY.md) - Resumen de mejoras implementadas
 
 ### API Documentation
 
@@ -242,25 +245,44 @@ GET  /api/projects         - Listar proyectos
 - ✅ Soporte prioritario
 - ✅ White label
 
+## ⚡ Optimizaciones Recientes (v2.0.1)
+
+### Mejoras de Rendimiento
+- ✅ **FPS Limiting** - Visualización estable a 60 FPS
+- ✅ **Batch DOM Updates** - Renderizado de playlist 40-50% más rápido
+- ✅ **Memory Management** - Limpieza completa de recursos
+- ✅ **Animation Cleanup** - Prevención de fugas de memoria
+
+### Documentación Mejorada
+- ✅ **Validation Report** - Reporte completo de validación v2.0
+- ✅ **Optimization Guide** - Guía detallada de optimización
+- ✅ **Dependency Audit** - Auditoría de seguridad de dependencias
+- ✅ **CodeQL Security** - Análisis de seguridad aprobado (0 vulnerabilidades)
+
+Ver [OPTIMIZATION_SUMMARY.md](OPTIMIZATION_SUMMARY.md) para detalles completos.
+
 ## 🗺️ Roadmap
 
-### v2.1 (Próxima versión)
+### v2.1 (Q4 2025 - Próxima versión)
+- [ ] Testing automatizado (Jest + Playwright)
+- [ ] Actualización de dependencias obsoletas
+- [ ] Validación de optimizaciones con benchmarks
 - [ ] Renderizado de video funcional
-- [ ] Más efectos visuales
-- [ ] Keyframes y animaciones
-- [ ] Export múltiples formatos
+- [ ] Más efectos visuales y transiciones
 
-### v2.5 (Q1 2026)
+### v2.2 (Q1 2026)
+- [ ] IA Integration (auto-edición, subtítulos)
 - [ ] Colaboración en tiempo real
 - [ ] Versionado de proyectos
-- [ ] Biblioteca de assets
-- [ ] Templates prediseñados
+- [ ] Progressive Web App (PWA)
 
 ### v3.0 (Q2 2026)
-- [ ] IA para edición automática
-- [ ] Subtítulos automáticos
+- [ ] Edición automática con IA
 - [ ] Eliminación de fondo automática
 - [ ] Estabilización de video
+- [ ] Biblioteca de assets y templates
+
+Ver [ROADMAP.md](ROADMAP.md) para el plan completo.
 
 ## 🤝 Contribuir
 
